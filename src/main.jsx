@@ -9,6 +9,7 @@ import Login from "./Pages/Login.jsx";
 import Signup from "./Pages/Signup.jsx";
 import Dashboard from "./Layout/Dashboard.jsx";
 import AllTasks from "./Pages/AllTasks.jsx";
+import AllTaskTest from "./Pages/AllTaskTest.jsx";
 
 const routes = (
   <Routes>
@@ -19,6 +20,7 @@ const routes = (
     </Route>
     <Route path="dashboard" element={<Dashboard/>}>
      <Route path="all-tasks" element={<AllTasks/>}/>
+     <Route path="all-tasks2" element={<AllTaskTest/>}/>
     </Route>
   </Routes>
 );

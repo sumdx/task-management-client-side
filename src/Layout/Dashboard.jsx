@@ -18,6 +18,15 @@ const Dashboard = () => {
       <li>
         <NavLink
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          to={"all-tasks2"}
+        >
+          <IoMdHome size={30} />
+          <p className="flex-1 ms-5 whitespace-nowrap text-xl">Test</p>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           to={"/"}
         >
           <IoMdHome size={30} />
