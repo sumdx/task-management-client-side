@@ -12,7 +12,7 @@ const Signup = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/login";
   if (user) {
     return navigate("/");
   }

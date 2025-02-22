@@ -4,3 +4,6 @@
 @source "../node_modules/flowbite";
 @custom-variant dark (&:where(.dark, .dark *));
 
+.active{
+    color: blue;
+}

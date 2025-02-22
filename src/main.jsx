@@ -13,11 +13,13 @@ import AllTaskTest from "./Pages/AllTaskTest.jsx";
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Home from "./Components/Home.jsx";
 const queryClient = new QueryClient();
 
 const routes = (
   <Routes>
     <Route path="/" element={<Root />}>
+      <Route index element={<Home/>}/>
       <Route path="/about" element={<About />} />
     </Route>  
     

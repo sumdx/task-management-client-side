@@ -1,7 +1,7 @@
 import { FaPlay } from "react-icons/fa";
 import Task from "./Task";
 import { GrInProgress } from "react-icons/gr";
-import { MdOutlineDoneOutline } from "react-icons/md";
+import { MdDeleteForever, MdOutlineDoneOutline } from "react-icons/md";
 import { useDroppable } from "@dnd-kit/core";
 
 const TaskColumn = ({ id, title, tasks, hoverId }) => {
@@ -15,7 +15,7 @@ const TaskColumn = ({ id, title, tasks, hoverId }) => {
         } ${id === "inProgress" ? "bg-blue-100" : ""} ${
           id === "done" ? "bg-emerald-100" : ""
         }
-        ${hoverId === "delete" && id === "delete" ? "bg-red-600" :""}
+        ${hoverId === "delete" && id === "delete" ? "bg-red-400" :""}
         ${hoverId === "toDo"  && id === "toDo" ? "bg-amber-400" :""}
         ${hoverId === "inProgress"  && id === "inProgress" ? "bg-blue-400" :""}
         ${hoverId === "done"  && id === "done" ? "bg-emerald-400" :""}
@@ -24,8 +24,9 @@ const TaskColumn = ({ id, title, tasks, hoverId }) => {
         {
             id === "delete"
             ?
-            <div className="border-2 border-dashed p-5">
+            <div className=" flex gap-2 justify-center items-center border-2 border-dashed p-5">
                 <h1>Drag task here to Delete</h1>
+                <MdDeleteForever size={25}></MdDeleteForever>
             </div>
             :
             <div>

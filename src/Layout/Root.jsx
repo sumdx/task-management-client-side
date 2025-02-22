@@ -5,9 +5,8 @@ import NavBar from '../Components/NavBar';
 const Root = () => {
     return (
         <div>
-            <h1>Root</h1>
-            <NavBar></NavBar>
-            <Outlet></Outlet>
+            <NavBar className="fixed"></NavBar>
+            <Outlet className="dark:bg-gray-800 "></Outlet>
         </div>
     );
 };

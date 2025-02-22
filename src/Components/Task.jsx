@@ -4,8 +4,8 @@ import { MdDeleteForever } from "react-icons/md";
 
 const Task = ({ task }) => {
 
-    const handleCardDelete = (_id)=>{
-        console.log(_id)
+    const handleCardDelete = ()=>{
+        console.log("_id")
     }
   const {
     attributes,
@@ -14,6 +14,7 @@ const Task = ({ task }) => {
     transform,
     transition,
     isDragging,
+    activationConstraint
   } = useDraggable({ id: task._id });
 
   const style = {
@@ -26,7 +27,12 @@ const Task = ({ task }) => {
     width: "100%",
   };
   return (
+    
     <div
+    activationConstraint={{
+      delay: 250,
+      tolerance: 5,
+    }}
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -43,7 +49,7 @@ const Task = ({ task }) => {
       </div>
 
       <div>
-        < MdDeleteForever onClick={()=>{handleCardDelete(task?._id)}} size={25}/>
+        < MdDeleteForever onClick={handleCardDelete} size={25}/>
       </div>
     </div>
   );

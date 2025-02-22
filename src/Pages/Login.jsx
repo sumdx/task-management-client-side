@@ -2,30 +2,41 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import GoogleLogin from "../Components/GoogleLogin";
-
-
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { user, signInUser, signInUserWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
 
-    const {user, signInUser, signInUserWithGoogle} = useContext(AuthContext);
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    if (user) {
-        return navigate("/");
-      }
+  if (user) {
+    return navigate("/");
+  }
   const loginHandle = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    
+    signInUser(email, password)
+      .then((res) => {
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: "Something Wrong in authentication",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+      });
   };
-  
 
   return (
     <div className="relative">
       <div className="absolute top-0 left-0">
-        <NavLink to={"/"}><h1 className="ml-5 mt-5 text-xl font-bold">Task Tracker</h1></NavLink>
+        <NavLink to={"/"}>
+          <h1 className="ml-5 mt-5 text-xl font-bold">Task Tracker</h1>
+        </NavLink>
       </div>
       <div>
         <section class="bg-gray-50 dark:bg-gray-900 min-h-screen">
@@ -35,8 +46,11 @@ const Login = () => {
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
                   Sign in to Task Tracker
                 </h2>
-                <form onSubmit={loginHandle} class="mt-8 space-y-6 border-dashed border-gray-400 border-b-2 pb-5" action="#">
-                  
+                <form
+                  onSubmit={loginHandle}
+                  class="mt-8 space-y-6 border-dashed border-gray-400 border-b-2 pb-5"
+                  action="#"
+                >
                   <div>
                     <label
                       for="email"
@@ -90,7 +104,6 @@ const Login = () => {
           </div>
         </section>
       </div>
-      
     </div>
   );
 };

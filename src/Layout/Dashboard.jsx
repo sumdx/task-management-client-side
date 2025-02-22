@@ -1,9 +1,20 @@
-import { FaTasks } from "react-icons/fa";
+import { useContext } from "react";
+import { FaSignOutAlt, FaTasks } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
-import { NavLink, Outlet } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Dashboard = () => {
-//   const logout = () => {};
+  const {signOutUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    signOutUser()
+    .then(()=>{
+      console.log("/")
+      navigate("/");
+    })
+    
+  };
   const menuItems = (
     <>
       <li>
@@ -15,15 +26,7 @@ const Dashboard = () => {
           <p className="flex-1 ms-5 whitespace-nowrap text-xl">All Tasks</p>
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          to={"all-tasks2"}
-        >
-          <IoMdHome size={30} />
-          <p className="flex-1 ms-5 whitespace-nowrap text-xl">Log Out</p>
-        </NavLink>
-      </li>
+      
       <li>
         <NavLink
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -32,6 +35,15 @@ const Dashboard = () => {
           <IoMdHome size={30} />
           <p className="flex-1 ms-5 whitespace-nowrap text-xl">Home</p>
         </NavLink>
+      </li>
+      <li>
+        <div
+          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          
+        >
+          <FaSignOutAlt size={30} />
+          <p onClick={logout} className="flex-1 ms-5 whitespace-nowrap text-xl">Log Out</p>
+        </div>
       </li>
     </>
   );

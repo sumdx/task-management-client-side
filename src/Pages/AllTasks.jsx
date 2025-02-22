@@ -160,9 +160,10 @@ const AllTasks = () => {
         <AddTasks  tasks={tasks} allTaskRefetch = {allTaskRefetch} ></AddTasks>
       </div>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-        <div className="text-center bg-red-200 p-6 mb-4">
+        <div className="flex text-center bg-red-200 p-6 mb-4">
           
           <TaskColumn hoverId={hoverId} id="delete"></TaskColumn>
+          {/* <TaskColumn hoverId={hoverId} id="edit"></TaskColumn> */}
         </div>
       <div className="md:flex gap-6">
         <TaskColumn hoverId={hoverId} id="toDo" title="To-Do" tasks={tasks.toDo} />
