@@ -5,5 +5,5 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .active{
-    color: blue;
+    color: rgb(105, 105, 249);
 }

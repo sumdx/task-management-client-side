@@ -8,7 +8,7 @@ const Login = () => {
   const { user, signInUser, signInUserWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/dashboard/all-tasks";
 
   if (user) {
     return navigate("/");

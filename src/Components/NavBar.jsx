@@ -5,6 +5,7 @@ import LogOutBtn from "./LogOutBtn";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
+  
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -31,7 +32,7 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/dashboard"}>
+        <NavLink to={"/dashboard/all-tasks"}>
           <a
             className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
             aria-current="page"

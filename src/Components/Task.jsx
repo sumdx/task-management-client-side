@@ -21,7 +21,7 @@ const Task = ({ task ,allTaskRefetch}) => {
     const updateDoc = {
       title, description, dueDate
     }
-    console.log(task._id);
+
     axiosPublic.patch(`/tasks/${task._id}`,updateDoc)
     .then(res=>{
       setIsModalOpen(false);

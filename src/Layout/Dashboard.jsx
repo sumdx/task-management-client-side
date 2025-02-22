@@ -6,7 +6,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Dashboard = () => {
   const {signOutUser} = useContext(AuthContext);
+  
   const navigate = useNavigate();
+
   const logout = () => {
     signOutUser()
     .then(()=>{

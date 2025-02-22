@@ -11,7 +11,7 @@ const GoogleLogin = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/dashboard/all-tasks";
   
   const googleSignInHandle = () => {
     signInUserWithGoogle()
