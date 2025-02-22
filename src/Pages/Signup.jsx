@@ -23,7 +23,7 @@ const Signup = () => {
     const photoUrl = e.target.photoUrl.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, photoUrl, email, password);
+
 
     signUpUser(email, password)
     .then((result) => {
@@ -38,7 +38,7 @@ const Signup = () => {
           photoURL: photoUrl,
           role: "member",
         };
-        console.log(userInfo)
+
         axiosPublic
           .post("/users", userInfo)
           .then((res) => {
@@ -65,7 +65,7 @@ const Signup = () => {
           });
       })
       .catch((e)=>{
-        console.log(e);
+
         Swal.fire({
             title: "Error!",
             text: "Something Wrong in updating the profile",

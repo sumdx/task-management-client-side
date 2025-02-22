@@ -10,7 +10,7 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
   const { user } = useContext(AuthContext);
   const handleAddTask = (e) => {
     e.preventDefault();
-    console.log(tasks);
+
     const ownerEmail = user.email;
     const title = e.target.title.value;
     const description = e.target.description.value;
@@ -35,7 +35,7 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
     axiosPublic
       .post("/tasks", task)
       .then((res) => {
-        console.log(res)
+ 
         Swal.fire({
           title: "Success!",
           text: "Sign Up Successfully",

@@ -4,7 +4,7 @@ import { GrInProgress } from "react-icons/gr";
 import { MdDeleteForever, MdOutlineDoneOutline } from "react-icons/md";
 import { useDroppable } from "@dnd-kit/core";
 
-const TaskColumn = ({ id, title, tasks, hoverId }) => {
+const TaskColumn = ({ id, title, tasks, hoverId, allTaskRefetch }) => {
     const { setNodeRef } = useDroppable({ id });
   
     return (
@@ -50,7 +50,7 @@ const TaskColumn = ({ id, title, tasks, hoverId }) => {
   
           return(
      
-           <Task key={task._id} task={task} />
+           <Task allTaskRefetch={allTaskRefetch} key={task._id} task={task} />
   
           )
           })}

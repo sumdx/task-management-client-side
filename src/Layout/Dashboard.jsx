@@ -10,7 +10,7 @@ const Dashboard = () => {
   const logout = () => {
     signOutUser()
     .then(()=>{
-      console.log("/")
+
       navigate("/");
     })
     

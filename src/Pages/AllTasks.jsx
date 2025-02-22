@@ -111,8 +111,6 @@ const AllTasks = () => {
 
 
     if (destinationColumn === "delete") {
-      console.log(`Deleting task: ${sourceId}`);
-
 
       setTasks((prev) => {
           const updatedTasks = { ...prev };
@@ -126,7 +124,7 @@ const AllTasks = () => {
           await axiosPublic.delete(`/tasks/${sourceId}`);
           allTaskRefetch(); 
       } catch (error) {
-          console.error("Failed to delete task:", error);
+         
       }
       return; 
   }
@@ -140,17 +138,16 @@ const AllTasks = () => {
     }));
 
     try {
-      await axiosPublic.patch(`/tasks`, {sourceId, category: destinationColumn });
+      await axiosPublic.patch(`/task`, {sourceId, category: destinationColumn });
       allTaskRefetch();
     } catch (error) {
-      console.error("Failed to update task:", error);
+
     }
   };
 //   Handle while draging event
   const handleDragOver = (e) => {
    const {over} = e;
     setHoverId(over.id);
-   console.log(over)
   };
 
   return (
@@ -166,7 +163,7 @@ const AllTasks = () => {
           {/* <TaskColumn hoverId={hoverId} id="edit"></TaskColumn> */}
         </div>
       <div className="md:flex gap-6">
-        <TaskColumn hoverId={hoverId} id="toDo" title="To-Do" tasks={tasks.toDo} />
+        <TaskColumn allTaskRefetch={allTaskRefetch} hoverId={hoverId} id="toDo" title="To-Do" tasks={tasks.toDo} />
         <TaskColumn
           hoverId={hoverId}
           id="inProgress"
