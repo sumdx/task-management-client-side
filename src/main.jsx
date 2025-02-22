@@ -10,23 +10,28 @@ import Signup from "./Pages/Signup.jsx";
 import Dashboard from "./Layout/Dashboard.jsx";
 import AllTasks from "./Pages/AllTasks.jsx";
 import AllTaskTest from "./Pages/AllTaskTest.jsx";
+import AuthProvider from "./Provider/AuthProvider.jsx";
+import PrivateRoute from "./Provider/PrivateRoute.jsx";
 
 const routes = (
   <Routes>
-    <Route path="/" element={<Root/>}>
-      <Route path="/about" element={<About/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/about" element={<Signup/>}/>
+    <Route path="/" element={<Root />}>
+      <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/about" element={<Signup />} />
     </Route>
-    <Route path="dashboard" element={<Dashboard/>}>
-     <Route path="all-tasks" element={<AllTasks/>}/>
-     <Route path="all-tasks2" element={<AllTaskTest/>}/>
+    <Route path="/login" element={<Login/>}></Route>
+    <Route path="/signup" element={<Signup/>}></Route>
+    <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+      <Route path="all-tasks" element={<PrivateRoute><AllTasks /></PrivateRoute>} />
     </Route>
   </Routes>
 );
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>{routes}</BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>{routes}</BrowserRouter>
+    </AuthProvider>
   </StrictMode>
 );

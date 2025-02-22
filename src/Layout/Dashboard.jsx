@@ -3,7 +3,7 @@ import { IoMdHome } from "react-icons/io";
 import { NavLink, Outlet } from "react-router";
 
 const Dashboard = () => {
-  const logout = () => {};
+//   const logout = () => {};
   const menuItems = (
     <>
       <li>
