@@ -29,6 +29,7 @@ const Task = ({ task, allTaskRefetch }) => {
       setDueText(`${daysDifference} days left.`);
     }
   }, [task,allTaskRefetch]);
+
   const handleCartEdit = () => {
     setIsModalOpen(true);
   };
