@@ -11,8 +11,9 @@ const Home = () => {
             Task Tracker
           </h1>
           <p className="mb-6 md:text-left text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+           A simple Task Management Application for track the daily tasks.
+           <br />
+           <b>Drang and Drop</b> Feature makes it more unique.
           </p>
           <NavLink
             to={"/dashboard"}

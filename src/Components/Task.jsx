@@ -28,7 +28,7 @@ const Task = ({ task, allTaskRefetch }) => {
     } else {
       setDueText(`${daysDifference} days left.`);
     }
-  }, [task]);
+  }, [task,allTaskRefetch]);
   const handleCartEdit = () => {
     setIsModalOpen(true);
   };
@@ -46,7 +46,7 @@ const Task = ({ task, allTaskRefetch }) => {
 
     axiosPublic.patch(`/tasks/${task._id}`, updateDoc).then((res) => {
       setIsModalOpen(false);
-      allTaskRefetch;
+      allTaskRefetch();
       Swal.fire({
         title: "Success!",
         text: "Update Successfully",
@@ -169,6 +169,7 @@ const Task = ({ task, allTaskRefetch }) => {
         <div className="space-y-1">
           <h2 className="text-lg font-bold">{task.title}</h2>
           <p className="text-sm">{task.description}</p>
+          <p className="text-sm">Created At : {new Date(task.createdAt).toLocaleString()}</p>
           <div>
             {overDue ? (
               <span className="bg-red-300 text-red-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">

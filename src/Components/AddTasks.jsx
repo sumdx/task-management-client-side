@@ -30,6 +30,7 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
       dueDate,
       category,
       order,
+      createdAt: new Date().toISOString(),
     };
 
     axiosPublic
