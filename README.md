@@ -48,7 +48,7 @@ A **React-based** Task Management App with **drag-and-drop functionality**, **re
 ```sh
 git clone https://github.com/your-username/task-manager-frontend.git
 cd task-manager-frontend
-
+```
 2️⃣ **Install Dependencies***
 ```sh
 npm install
