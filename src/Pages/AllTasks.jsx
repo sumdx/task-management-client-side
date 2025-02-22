@@ -6,6 +6,9 @@ import { GrInProgress } from "react-icons/gr";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import AddTasks from "../Components/AddTasks";
 import useAllTasks from "../Hooks/useAllTasks";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Task from "../Components/Task";
+import TaskColumn from "../Components/TaskColumn";
 // const initialData = {
 //   toDo: [
 //     {
@@ -66,7 +69,7 @@ import useAllTasks from "../Hooks/useAllTasks";
 const AllTasks = () => {
   
   const [allTasks, allTaskRefetch,isTaskFetching, isTaskLoading] = useAllTasks();
-  
+  const axiosPublic = useAxiosPublic();
   
   const [tasks, setTasks] = useState([]);
   useEffect(() =>{
@@ -75,18 +78,19 @@ const AllTasks = () => {
     }
   },[allTasks])
 
-  if (isTaskLoading || isTaskFetching) {
-    return <div className="text-center p-4">Loading tasks...</div>;
-  }
+  // if (isTaskLoading || isTaskFetching) {
+  //   return <div className="text-center p-4">Loading tasks...</div>;
+  // }
 
 
   // Handle drag end event
-  const handleDragEnd = (event) => {
+  const handleDragEnd = async (event) => {
     const { active, over } = event;
     if (!over) return;
 
     const sourceId = active.id; // Task ID
     const destinationColumn = over.id; // Target Column
+    
 
     let sourceColumn;
     
@@ -103,6 +107,28 @@ const AllTasks = () => {
       (task) => task._id === sourceId
     );
 
+
+    if (destinationColumn === "delete") {
+      console.log(`Deleting task: ${sourceId}`);
+
+
+      setTasks((prev) => {
+          const updatedTasks = { ...prev };
+          updatedTasks[sourceColumn] = updatedTasks[sourceColumn].filter(
+              (task) => task._id !== sourceId
+          );
+          return updatedTasks;
+      });
+
+      try {
+          await axiosPublic.delete(`/tasks/${sourceId}`);
+          allTaskRefetch(); 
+      } catch (error) {
+          console.error("Failed to delete task:", error);
+      }
+      return; 
+  }
+
     setTasks((prev) => ({
       ...prev,
       [sourceColumn]: prev[sourceColumn].filter(
@@ -110,22 +136,33 @@ const AllTasks = () => {
       ),
       [destinationColumn]: [...prev[destinationColumn], {...taskToMove, category : destinationColumn}],
     }));
+
+    try {
+      await axiosPublic.patch(`/tasks`, {sourceId, category: destinationColumn });
+      allTaskRefetch();
+    } catch (error) {
+      console.error("Failed to update task:", error);
+    }
   };
 //   Handle while draging event
   const handleDragOver = (e) => {
    const {over} = e;
 
-   
+   console.log(over)
   };
 
   return (
     
     <div>
       <div>
-        <AddTasks tasks={tasks} allTaskRefetch = {allTaskRefetch} ></AddTasks>
+        <AddTasks  tasks={tasks} allTaskRefetch = {allTaskRefetch} ></AddTasks>
       </div>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-      <div className="flex gap-6">
+        <div className="text-center bg-red-200 p-6 mb-4">
+          
+          <TaskColumn id="delete"></TaskColumn>
+        </div>
+      <div className="md:flex gap-6">
         <TaskColumn id="toDo" title="To-Do" tasks={tasks.toDo} />
         <TaskColumn
   
@@ -134,6 +171,7 @@ const AllTasks = () => {
           tasks={tasks.inProgress}
         />
         <TaskColumn  id="done" title="Done" tasks={tasks.done} />
+  
       </div>
     </DndContext>
     </div>
@@ -141,89 +179,6 @@ const AllTasks = () => {
   );
 };
 
-const TaskColumn = ({ id, title, tasks }) => {
-  const { setNodeRef } = useDroppable({ id });
 
-  return (
-    <div
-      ref={setNodeRef}
-      className={`h-fit w-full rounded-lg p-4 ${
-        id === "toDo" ? "bg-amber-100" : ""
-      } ${id === "inProgress" ? "bg-blue-100" : ""} ${
-        id === "done" ? "bg-emerald-100" : ""
-      }`}
-    >
-      <div className="flex items-center gap-6 border-b pb-4 mb-4 border-dotted ">
-        <h1
-          className={`inline-flex items-center gap-4  text-gray-900 py-2 px-4 rounded-lg ${
-            id === "toDo" ? "bg-amber-300" : ""
-          } ${id === "inProgress" ? "bg-blue-300" : ""} ${
-            id === "done" ? "bg-emerald-300" : ""
-          }`}
-        >
-          {id === "toDo" && <FaPlay />} 
-          {id === "inProgress" && <GrInProgress />} 
-          {id === "done" && <MdOutlineDoneOutline />} 
-          {title}
-        </h1>
-        
-      </div>
-
-      {tasks?.map((task) => {
-
-        return(
-   
-         <Task key={task._id} task={task} />
-
-        )
-        })}
-    </div>
-  );
-};
-
-const Task = ({ task }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useDraggable({ id: task._id });
-
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0) scale(${
-          isDragging ? 1.05 : 1
-        })`
-      : undefined,
-    transition,
-    width: "100%",
-
-  };
-  return (
-    <div
-      
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-      style={style}
-      className={`p-2 rounded-lg shadow my-2 cursor-grab 
-        ${
-        task.category === "toDo" ? "bg-amber-200" : ""
-      }
-      ${
-        task.category === "inProgress" ? "bg-blue-200" : ""
-      }
-      ${
-        task.category === "done" ? "bg-emerald-200" : ""
-      }
-      `}
-    >
-      <h2 className="text-lg font-bold">{task.title}</h2>
-      <p className="text-sm">{task.description}</p>
-    </div>
-  );
-};
 
 export default AllTasks;

@@ -73,8 +73,8 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
           </div>
           <form className="space-y-4 mb-4 " onSubmit={handleAddTask} action="">
             {/* 1 */}
-            <div className="flex justify-between gap-4">
-              <div className="lg:min-w-1/2">
+            <div className="md:flex justify-between gap-4">
+              <div className="md:min-w-1/2">
                 <label
                   for="helper-text"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -90,7 +90,7 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
                   placeholder="Your task title"
                 />
               </div>
-              <div className="lg:min-w-1/2">
+              <div className="md:min-w-1/2">
                 <label
                   for="category"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -111,8 +111,8 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
               </div>
             </div>
             {/* 2 */}
-            <div className="flex gap-4">
-              <div className="lg:min-w-1/2">
+            <div className="md:flex gap-4">
+              <div className="md:min-w-1/2">
                 <label
                   for="description"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -127,7 +127,7 @@ const AddTasks = ({ tasks = {} ,allTaskRefetch}) => {
                   placeholder="Write your thoughts here..."
                 ></textarea>
               </div>
-              <div className="lg:min-w-1/2">
+              <div className="md:min-w-1/2">
                 <label
                   for="duedate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
