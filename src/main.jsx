@@ -12,6 +12,8 @@ import AllTasks from "./Pages/AllTasks.jsx";
 import AllTaskTest from "./Pages/AllTaskTest.jsx";
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
 
 const routes = (
   <Routes>
@@ -31,7 +33,9 @@ const routes = (
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <BrowserRouter>{routes}</BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>{routes}</BrowserRouter>
+      </QueryClientProvider>
     </AuthProvider>
   </StrictMode>
 );

@@ -1,68 +1,83 @@
 import { closestCenter, DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { FaPlay } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import { MdOutlineDoneOutline } from "react-icons/md";
-const initialData = {
-  toDo: [
-    {
-      _id: "65d501a1b9f3a12d34e89a70",
-      title: "Complete React Project 1",
-      description: "Finish the frontend UI with drag-and-drop.",
-      category: "toDo",
-      order: 1,
-    },
-    {
-      _id: "65d501a1b9f3a12d34e89a71",
-      title: "Complete React Project 2",
-      description: "Finish the frontend UI with drag-and-drop.",
-      category: "toDo",
-      order: 2,
-    },
-    {
-      _id: "65d501a1b9f3a12d34e89a72",
-      title: "Complete React Project 3",
-      description: "Finish the frontend UI with drag-and-drop.",
-      category: "toDo",
-      order: 3,
-    },
-    {
-      _id: "65d501a1b9f3a12d34e89a73",
-      title: "Complete React Project 4",
-      description: "Finish the frontend UI with drag-and-drop.",
-      category: "toDo",
-      order: 4,
-    },
-  ],
-  inProgress: [
-    {
-      _id: "65d501a1b9f3a12d34e89a74",
-      title: "Setup Express Backend",
-      description: "Create API endpoints for task management.",
-      category: "inProgress",
-      order: 1,
-    },
-    {
-      _id: "65d501a1b9f3a12d34e88a75",
-      title: "Setup Express Backend 2",
-      description: "Create API endpoints for task management.",
-      category: "inProgress",
-      order: 2,
-    },
-  ],
-  done: [
-    {
-      _id: "65d501a1b9f3a12d34e89a76",
-      title: "Deploy MongoDB Database",
-      description: "Setup MongoDB Atlas and connect with backend.",
-      category: "done",
-      order: 1,
-    },
-  ],
-};
+import AddTasks from "../Components/AddTasks";
+import useAllTasks from "../Hooks/useAllTasks";
+// const initialData = {
+//   toDo: [
+//     {
+//       _id: "65d501a1b9f3a12d34e89a70",
+//       title: "Complete React Project 1",
+//       description: "Finish the frontend UI with drag-and-drop.",
+//       category: "toDo",
+//       order: 1,
+//     },
+//     {
+//       _id: "65d501a1b9f3a12d34e89a71",
+//       title: "Complete React Project 2",
+//       description: "Finish the frontend UI with drag-and-drop.",
+//       category: "toDo",
+//       order: 2,
+//     },
+//     {
+//       _id: "65d501a1b9f3a12d34e89a72",
+//       title: "Complete React Project 3",
+//       description: "Finish the frontend UI with drag-and-drop.",
+//       category: "toDo",
+//       order: 3,
+//     },
+//     {
+//       _id: "65d501a1b9f3a12d34e89a73",
+//       title: "Complete React Project 4",
+//       description: "Finish the frontend UI with drag-and-drop.",
+//       category: "toDo",
+//       order: 4,
+//     },
+//   ],
+//   inProgress: [
+//     {
+//       _id: "65d501a1b9f3a12d34e89a74",
+//       title: "Setup Express Backend",
+//       description: "Create API endpoints for task management.",
+//       category: "inProgress",
+//       order: 1,
+//     },
+//     {
+//       _id: "65d501a1b9f3a12d34e88a75",
+//       title: "Setup Express Backend 2",
+//       description: "Create API endpoints for task management.",
+//       category: "inProgress",
+//       order: 2,
+//     },
+//   ],
+//   done: [
+//     {
+//       _id: "65d501a1b9f3a12d34e89a76",
+//       title: "Deploy MongoDB Database",
+//       description: "Setup MongoDB Atlas and connect with backend.",
+//       category: "done",
+//       order: 1,
+//     },
+//   ],
+// };
 const AllTasks = () => {
-  const [tasks, setTasks] = useState(initialData);
+  
+  const [allTasks, allTaskRefetch,isTaskFetching, isTaskLoading] = useAllTasks();
+  
+  
+  const [tasks, setTasks] = useState([]);
+  useEffect(() =>{
+    if(allTasks){
+      setTasks(allTasks)
+    }
+  },[allTasks])
+
+  if (isTaskLoading || isTaskFetching) {
+    return <div className="text-center p-4">Loading tasks...</div>;
+  }
 
 
   // Handle drag end event
@@ -104,7 +119,12 @@ const AllTasks = () => {
   };
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+    
+    <div>
+      <div>
+        <AddTasks tasks={tasks} allTaskRefetch = {allTaskRefetch} ></AddTasks>
+      </div>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
       <div className="flex gap-6">
         <TaskColumn id="toDo" title="To-Do" tasks={tasks.toDo} />
         <TaskColumn
@@ -116,6 +136,8 @@ const AllTasks = () => {
         <TaskColumn  id="done" title="Done" tasks={tasks.done} />
       </div>
     </DndContext>
+    </div>
+
   );
 };
 
@@ -147,7 +169,7 @@ const TaskColumn = ({ id, title, tasks }) => {
         
       </div>
 
-      {tasks.map((task) => {
+      {tasks?.map((task) => {
 
         return(
    

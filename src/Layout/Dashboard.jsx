@@ -21,7 +21,7 @@ const Dashboard = () => {
           to={"all-tasks2"}
         >
           <IoMdHome size={30} />
-          <p className="flex-1 ms-5 whitespace-nowrap text-xl">Test</p>
+          <p className="flex-1 ms-5 whitespace-nowrap text-xl">Log Out</p>
         </NavLink>
       </li>
       <li>
@@ -71,7 +71,7 @@ const Dashboard = () => {
         </div>
       </aside>
 
-      <div className="p-4 sm:ml-64">
+      <div className="p-4 sm:ml-64 dark:bg-gray-700 min-h-screen">
         <Outlet></Outlet>
       </div>
     </div>
