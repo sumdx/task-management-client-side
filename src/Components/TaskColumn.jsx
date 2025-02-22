@@ -4,7 +4,7 @@ import { GrInProgress } from "react-icons/gr";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import { useDroppable } from "@dnd-kit/core";
 
-const TaskColumn = ({ id, title, tasks }) => {
+const TaskColumn = ({ id, title, tasks, hoverId }) => {
     const { setNodeRef } = useDroppable({ id });
   
     return (
@@ -14,7 +14,12 @@ const TaskColumn = ({ id, title, tasks }) => {
           id === "toDo" ? "bg-amber-100" : ""
         } ${id === "inProgress" ? "bg-blue-100" : ""} ${
           id === "done" ? "bg-emerald-100" : ""
-        }`}
+        }
+        ${hoverId === "delete" && id === "delete" ? "bg-red-600" :""}
+        ${hoverId === "toDo"  && id === "toDo" ? "bg-amber-400" :""}
+        ${hoverId === "inProgress"  && id === "inProgress" ? "bg-blue-400" :""}
+        ${hoverId === "done"  && id === "done" ? "bg-emerald-400" :""}
+        `}
       >
         {
             id === "delete"

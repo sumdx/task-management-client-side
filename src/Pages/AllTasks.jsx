@@ -69,6 +69,7 @@ import TaskColumn from "../Components/TaskColumn";
 const AllTasks = () => {
   
   const [allTasks, allTaskRefetch,isTaskFetching, isTaskLoading] = useAllTasks();
+  const [hoverId, setHoverId] = useState("");
   const axiosPublic = useAxiosPublic();
   
   const [tasks, setTasks] = useState([]);
@@ -86,6 +87,7 @@ const AllTasks = () => {
   // Handle drag end event
   const handleDragEnd = async (event) => {
     const { active, over } = event;
+    setHoverId("");
     if (!over) return;
 
     const sourceId = active.id; // Task ID
@@ -147,7 +149,7 @@ const AllTasks = () => {
 //   Handle while draging event
   const handleDragOver = (e) => {
    const {over} = e;
-
+    setHoverId(over.id);
    console.log(over)
   };
 
@@ -160,17 +162,17 @@ const AllTasks = () => {
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
         <div className="text-center bg-red-200 p-6 mb-4">
           
-          <TaskColumn id="delete"></TaskColumn>
+          <TaskColumn hoverId={hoverId} id="delete"></TaskColumn>
         </div>
       <div className="md:flex gap-6">
-        <TaskColumn id="toDo" title="To-Do" tasks={tasks.toDo} />
+        <TaskColumn hoverId={hoverId} id="toDo" title="To-Do" tasks={tasks.toDo} />
         <TaskColumn
-  
+          hoverId={hoverId}
           id="inProgress"
           title="In Progress"
           tasks={tasks.inProgress}
         />
-        <TaskColumn  id="done" title="Done" tasks={tasks.done} />
+        <TaskColumn hoverId={hoverId} id="done" title="Done" tasks={tasks.done} />
   
       </div>
     </DndContext>
