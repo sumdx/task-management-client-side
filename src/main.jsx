@@ -17,11 +17,11 @@ const routes = (
   <Routes>
     <Route path="/" element={<Root />}>
       <Route path="/about" element={<About />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/about" element={<Signup />} />
-    </Route>
+    </Route>  
+    
     <Route path="/login" element={<Login/>}></Route>
     <Route path="/signup" element={<Signup/>}></Route>
+  
     <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
       <Route path="all-tasks" element={<PrivateRoute><AllTasks /></PrivateRoute>} />
     </Route>
