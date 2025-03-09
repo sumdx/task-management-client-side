@@ -9,11 +9,12 @@ import Login from "./Pages/Login.jsx";
 import Signup from "./Pages/Signup.jsx";
 import Dashboard from "./Layout/Dashboard.jsx";
 import AllTasks from "./Pages/AllTasks.jsx";
-import AllTaskTest from "./Pages/AllTaskTest.jsx";
+
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./Components/Home.jsx";
+import AllTaskAlt from "./Pages/AllTaskAlt.jsx";
 const queryClient = new QueryClient();
 
 const routes = (
@@ -28,6 +29,7 @@ const routes = (
   
     <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
       <Route path="all-tasks" element={<PrivateRoute><AllTasks /></PrivateRoute>} />
+      <Route path="all-tasks-alt" element={<PrivateRoute><AllTaskAlt /></PrivateRoute>} />
     </Route>
   </Routes>
 );

@@ -12,7 +12,7 @@ const Task = ({ task, allTaskRefetch }) => {
   const axiosPublic = useAxiosPublic();
   const [dueText, setDueText] = useState("");
   const [overDue, setOverDue] = useState(false);
-  console.log(typeof(allTaskRefetch));
+
   useEffect(() => {
     const dueDate = new Date(task.dueDate);
     const today = new Date();
